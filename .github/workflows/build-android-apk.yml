@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
+    tags: [ 'v*' ]
+
+permissions:
+  contents: write
 
 jobs:
   build-apk:
@@ -43,10 +47,28 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
+          cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/CardioMobility.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: CardioMobility-Android-APK
-          path: app/android/app/build/outputs/apk/debug/app-debug.apk
+          path: app/android/app/build/outputs/apk/debug/CardioMobility.apk
 
+      - name: Publish GitHub Release with direct APK download
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "Cardio Mobility v1.0.0 (Android APK)"
+          body: |
+            ## Cardio Mobility — Movilidad Cardiovascular Segura (Android APK)
+
+            Aplicación 100% offline (sin servidores) con **30 ejercicios basados en evidencia**, **visor anatómico 3D interactivo estilo OpenSim**, chequeo previo de banderas rojas, guía por voz en español anti-Valsalva y recordatorios nativos.
+
+            ### Instalación en Android
+            1. Descarga **`CardioMobility.apk`** desde los *Assets* de abajo.
+            2. Ábrelo en tu teléfono Android y permite instalar apps desde tu navegador/archivos si te lo solicita.
+          files: app/android/app/build/outputs/apk/debug/CardioMobility.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
