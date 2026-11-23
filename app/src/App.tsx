@@ -13,6 +13,7 @@ import {
 import { POSTURE_META } from './data/exercises';
 import { ClinicalProfile, Posture, ReminderConfig, SessionDuration, SessionRecord, SessionStep } from './types';
 import { buildSession } from './utils/sessionBuilder';
+import { unlockAudio } from './utils/audioGuide';
 import {
   appendHistory,
   getNextVariantForPosture,
@@ -56,6 +57,7 @@ export default function App() {
   );
 
   const handleStartApproved = () => {
+    unlockAudio();
     setShowRedFlag(false);
     setActiveVariant(nextVariant);
     setActiveSteps(previewSession.steps);

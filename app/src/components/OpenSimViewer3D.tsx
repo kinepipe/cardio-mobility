@@ -486,3 +486,4 @@ export const OpenSimViewer3D: React.FC<Props> = ({ exercise, height = 270 }) => 
     </div>
   );
 };
+

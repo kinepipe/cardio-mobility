@@ -278,3 +278,4 @@ export const OPENSIM_POSES_3D: Record<string, { start: Pose3D; end: Pose3D }> = 
 export function getHighlightRegion(group: MuscleGroup): MuscleGroup {
   return group;
 }
+
