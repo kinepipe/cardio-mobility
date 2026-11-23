@@ -1,0 +1,12 @@
+# Dependencies & builds
+app/node_modules/
+app/dist/
+app/android/app/build/
+app/android/.gradle/
+app/android/local.properties
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
